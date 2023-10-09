@@ -17,7 +17,7 @@ on:
 
 env:
   TF_VAR_CNAME_NAME: "${{ github.event.inputs.cvalue }}"
-  TF_VAR_ANOTHER_VAR: HEY THERE UP HERE!!
+  TF_VAR_ANOTHER_VAR: HEY, THERE UP HERE!!!!!
   TF_CLOUD_ORGANIZATION: "bennun-labs"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "teste-envs"
@@ -52,6 +52,12 @@ jobs:
       - name: Terraform plan
         id: plan
         run: |
+          export TF_VAR_CNAME_NAME="${{ github.event.inputs.cname }}"
+          echo "Exported here: $TF_VAR_CNAME_NAME"
+
+          export TF_VAR_CNAME_NAME2=${{ github.event.inputs.cname }}
+          echo "Exported here2: $TF_VAR_CNAME_NAME2"
+          
           echo "Input CNAME_NAME ${{ github.event.inputs.cname }}"
           echo "Env: $TF_VAR_CNAME_NAME"
           echo "Env from input: $ENV_FROM_INPUT"
@@ -61,7 +67,14 @@ jobs:
       
       - name: Terraform apply
         run: |
+          export TF_VAR_CNAME_NAME="${{ github.event.inputs.cname }}"
+          echo "Exported here: $TF_VAR_CNAME_NAME"
+
+          export TF_VAR_CNAME_NAME2=${{ github.event.inputs.cname }}
+          echo "Exported here2: $TF_VAR_CNAME_NAME2"
+
           echo "Input CNAME_NAME ${{ github.event.inputs.cname }}"
           echo "Env: $TF_VAR_CNAME_NAME"
           echo "Env from input: $ENV_FROM_INPUT"
+          
           terraform apply -auto-approve -input=false
