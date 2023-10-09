@@ -13,14 +13,44 @@ on:
         description: "Inform CNAME value"
 
 env:
-  TF_VAR_CNAME_NAME: "Eitchaaa"
+  TF_VAR_CNAME_NAME: "Eitchaaa CNAME NAME do Github Actions para o Terraform"
+  TF_VAR_CNAME_VALUE: "Eitchaaa CNAME VALUE do Github Actions para o Terraform"
+  TF_CLOUD_ORGANIZATION: "bennun-labs"
+  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
+  TF_WORKSPACE: "teste-envs"
   ENV_FROM_INPUT: "${{ github.event.inputs.cvalue }}"
+  CONFIG_DIRECTORY: "./"
 
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-      - name: Use input values
+      - name: Chekcout
+        uses: actions/checkout@v3
+
+      - name: Upload Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        id: apply-upload
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          directory: ${{ env.CONFIG_DIRECTORY }}
+
+      - name: Create Apply Run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        id: apply-run
+        with:
+          workspace: ${{env.TF_WORKSPACE}} 
+          configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}
+
+      - name: Apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
+        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
+        id: apply
+        with:
+          run: ${{steps.apply-run.outputs.run_id}}
+          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+
+      - name: Terraform Apply
         run: |
           echo "Input CNAME_NAME ${{ github.event.inputs.cname }}"
           echo "Input CNAME_VALUE ${{ github.event.inputs.cvalue }}"
