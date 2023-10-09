@@ -18,9 +18,9 @@ provider "aws" {
 
 
 output "cname_name" {
-  value = var.cname_name
+  value = var.CNAME_NAME
 }
 
 output "cname_value" {
-  value = var.cname_value
+  value = var.CNAME_VALUE
 }
