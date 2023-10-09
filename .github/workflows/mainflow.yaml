@@ -38,22 +38,22 @@ jobs:
       - name: Terraform init
         id: init
         run: |
-          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
-          export TF_WORKSPACE=${{ env.TF_WORKSPACE }} 
+          #export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          #export TF_WORKSPACE=${{ env.TF_WORKSPACE }} 
           terraform init
 
       - name: Terraform validate
         id: validate
         run: |
-          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
-          export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
+          #export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          #export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
           terraform validate
       
       - name: Terraform plan
         id: plan
         run: |
-          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
-          export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
+          #export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          #export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
           export TF_VAR_CNAME_NAME=${{ github.event.inputs.cname }}
           export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
           terraform plan -input=false
@@ -61,8 +61,8 @@ jobs:
       
       - name: Terraform apply
         run: |
-          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
-          export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
+          #export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          #export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
           export TF_VAR_CNAME_NAME=${{ github.event.inputs.cname }}
           export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
           
