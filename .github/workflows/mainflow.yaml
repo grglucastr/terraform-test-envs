@@ -17,7 +17,7 @@ on:
 
 env:
   TF_VAR_CNAME_NAME: "${{ github.event.inputs.cvalue }}"
-  TF_VAR_ANOTHER_VAR: HEY THERE UP HERE
+  TF_VAR_ANOTHER_VAR: HEY THERE UP HEREeee
   TF_CLOUD_ORGANIZATION: "bennun-labs"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "teste-envs"
