@@ -13,9 +13,9 @@ on:
         description: "Inform CNAME value"
 
 env:
-  TF_CLOUD_ORGANIZATION: ${{env.TF_ORGANIZATION}}
+  TF_CLOUD_ORGANIZATION: ${{vars.TF_ORGANIZATION}}
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: ${{env.TF_WORKSPACE}}
+  TF_WORKSPACE: ${{vars.TF_WORKSPACE}}
   CONFIG_DIRECTORY: "./"
 
 jobs:
