@@ -1,0 +1,25 @@
+name: "Mainflow"
+
+on:
+  workflow_dispatch:
+    inputs:
+      cname:
+        type: string
+        required: true
+        description: "Inform CNAME name"
+      cvalue:
+        type: string
+        required: true
+        description: "Inform CNAME value"
+
+env:
+  TF_VAR_CNAME_NAME: "Eitchaaa"
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use input values
+        run: |
+          echo "Input CNAME_NAME ${{ github.event.inputs.cname }}"
+          echo "Env: $TF_VAR_CNAME_NAME"
