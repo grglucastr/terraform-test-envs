@@ -46,10 +46,11 @@ jobs:
       - name: Terraform plan
         id: plan
         run: |
-          export TF_CLOUD_ORGANIZATION=$TF_ORGANIZATION
-          export TF_WORKSPACE=$TF_WORKSPACE
           terraform plan -input=false
         continue-on-error: true
+        with:
+          TF_CLOUD_ORGANIZATION: ${{ env.TF_CLOUD_ORGANIZATION }}
+          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
       
       - name: Terraform apply
         run: |
@@ -59,3 +60,6 @@ jobs:
           export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
           
           terraform apply -auto-approve -input=false
+        with:
+          TF_CLOUD_ORGANIZATION: ${{ env.TF_CLOUD_ORGANIZATION }}
+          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
