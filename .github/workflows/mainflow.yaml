@@ -60,10 +60,14 @@ jobs:
         env:
           TF_VAR_CNAME_NAME: "${{ github.event.inputs.cvalue }}"
       
-      - name: Terraform apply
+      - name: Terraform apply -auto-approve
         run: |
           echo "is the value here?? In Apply???"
           echo $TF_VAR_CNAME_NAME
+          echo "no dollar symbol"
+          echo TF_VAR_CNAME_NAME
+          echo "from event itself"
+          echo ${{ github.event.inputs.cvalue }}
           export TF_VAR_CNAME_NAME=$TF_VAR_CNAME_NAME
           terraform apply
         env:
