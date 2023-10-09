@@ -48,6 +48,8 @@ jobs:
         run: |
           export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
           export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
+          export TF_VAR_CNAME_NAME=${{ github.event.inputs.cname }}
+          export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
           terraform plan -input=false
         continue-on-error: true
       
