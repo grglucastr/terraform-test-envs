@@ -27,6 +27,8 @@ env:
 jobs:
   greet:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_CNAME_NAME: 'INSIDE JOB'
     steps:
       - name: Chekcout
         uses: actions/checkout@v3
@@ -46,6 +48,9 @@ jobs:
       - name: Create Apply Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.4
         id: apply-run
+        env:
+          TF_VAR_ANOTHER_VAR: 'INSIDE STEP STAGE'
+
         with:
           workspace: ${{env.TF_WORKSPACE}} 
           configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}          
