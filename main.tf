@@ -30,6 +30,6 @@ output "cname_name" {
   value = var.CNAME_NAME
 }
 
-output "another_var" {
-  value = var.ANOTHER_VAR
+output "cname_value" {
+  value = var.CNAME_VALUE
 }
