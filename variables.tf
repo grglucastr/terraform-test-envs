@@ -1,4 +1,4 @@
-variable "ANOTHER_VAR" {
+variable "CNAME_VALUE" {
   description = "CNAME value from environment variable"
 }
 
