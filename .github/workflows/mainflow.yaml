@@ -42,7 +42,7 @@ jobs:
           export TF_VAR_CNAME_VALUE=$TF_VAR_CNAME_VALUE
 
       - name: Create Apply Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.4
         id: apply-run
         env:
           TF_VAR_CNAME_NAME: "opa"
