@@ -38,8 +38,8 @@ jobs:
       - name: Export variables
         id: export-variables
         run: |
-          export TF_VAR_CNAME_NAME = $TF_VAR_CNAME_NAME
-          export TF_VAR_CNAME_VALUE = $TF_VAR_CNAME_VALUE
+          export TF_VAR_CNAME_NAME=$TF_VAR_CNAME_NAME
+          export TF_VAR_CNAME_VALUE=$TF_VAR_CNAME_VALUE
 
       - name: Create Apply Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
