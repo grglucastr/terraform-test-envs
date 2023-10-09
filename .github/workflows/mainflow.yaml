@@ -27,9 +27,6 @@ env:
 jobs:
   greet:
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_CNAME_NAME: opa
-      TF_VAR_ANOTHER_VAR: HEY THERE
     steps:
       - name: Chekcout
         uses: actions/checkout@v3
