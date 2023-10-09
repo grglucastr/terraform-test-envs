@@ -13,9 +13,9 @@ on:
         description: "Inform CNAME value"
 
 env:
-  TF_CLOUD_ORGANIZATION: "bennun-labs"
+  TF_CLOUD_ORGANIZATION: ${{env.TF_ORGANIZATION}}
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "teste-envs"
+  TF_WORKSPACE: ${{env.TF_WORKSPACE}}
   CONFIG_DIRECTORY: "./"
 
 jobs:
@@ -51,5 +51,5 @@ jobs:
         run: |
           export TF_VAR_CNAME_NAME=${{ github.event.inputs.cname }}
           export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
-          echo "heyho!"
+          echo "heyho! vamos GUS!"
           terraform apply -auto-approve -input=false
