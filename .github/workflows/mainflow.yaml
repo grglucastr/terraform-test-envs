@@ -1,16 +1,19 @@
 name: "Mainflow"
 
 on:
-  workflow_dispatch:
-    inputs:
-      cname:
-        type: string
-        required: true
-        description: "Inform CNAME name"
-      cvalue:
-        type: string
-        required: true
-        description: "Inform CNAME value"
+  push:
+    branches:
+      - "master"
+  # workflow_dispatch:
+  #   inputs:
+  #     cname:
+  #       type: string
+  #       required: true
+  #       description: "Inform CNAME name"
+  #     cvalue:
+  #       type: string
+  #       required: true
+  #       description: "Inform CNAME value"
 
 env:
   TF_VAR_CNAME_NAME: Eitchaaa CNAME NAME do Github Actions para o Terraform
@@ -18,7 +21,7 @@ env:
   TF_CLOUD_ORGANIZATION: "bennun-labs"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "teste-envs"
-  ENV_FROM_INPUT: "${{ github.event.inputs.cvalue }}"
+  #ENV_FROM_INPUT: "${{ github.event.inputs.cvalue }}"
   CONFIG_DIRECTORY: "./"
 
 jobs:
