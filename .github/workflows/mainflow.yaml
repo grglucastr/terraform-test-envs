@@ -35,15 +35,18 @@ jobs:
           workspace: ${{ env.TF_WORKSPACE }}
           directory: ${{ env.CONFIG_DIRECTORY }}
 
+      - name: Export variables
+        id: export variables
+        run: |
+          export TF_VAR_CNAME_NAME = $TF_VAR_CNAME_NAME
+          export TF_VAR_CNAME_VALUE = $TF_VAR_CNAME_VALUE
+
       - name: Create Apply Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: apply-run
         with:
           workspace: ${{env.TF_WORKSPACE}} 
           configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}
-          run: |
-            export TF_VAR_CNAME_NAME = $TF_VAR_CNAME_NAME
-            export TF_VAR_CNAME_VALUE = $TF_VAR_CNAME_VALUE
 
       - name: Apply
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
