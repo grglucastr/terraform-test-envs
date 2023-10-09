@@ -46,7 +46,7 @@ jobs:
         id: apply-run
         env:
           TF_VAR_CNAME_NAME: 'opa'
-          TF_VAR_CNAME_VALUE: 'HEY THERE'
+          TF_VAR_ANOTHER_VAR: 'HEY THERE'
         with:
           workspace: ${{env.TF_WORKSPACE}} 
           configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}          
