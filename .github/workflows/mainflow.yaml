@@ -37,11 +37,17 @@ jobs:
       
       - name: Terraform init
         id: init
-        run: terraform init
+        run: |
+          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          export TF_WORKSPACE=${{ env.TF_WORKSPACE }} 
+          terraform init
 
       - name: Terraform validate
         id: validate
-        run: terraform validate
+        run: |
+          export TF_CLOUD_ORGANIZATION=${{ env.TF_CLOUD_ORGANIZATION }}
+          export TF_WORKSPACE=${{ env.TF_WORKSPACE }}
+          terraform validate
       
       - name: Terraform plan
         id: plan
