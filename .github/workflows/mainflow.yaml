@@ -14,6 +14,7 @@ on:
 
 env:
   TF_VAR_CNAME_NAME: "Eitchaaa"
+  ENV_FROM_INPUT: "${{ github.event.inputs.cvalue }}"
 
 jobs:
   greet:
@@ -22,4 +23,6 @@ jobs:
       - name: Use input values
         run: |
           echo "Input CNAME_NAME ${{ github.event.inputs.cname }}"
+          echo "Input CNAME_VALUE ${{ github.event.inputs.cvalue }}"
           echo "Env: $TF_VAR_CNAME_NAME"
+          echo "Env from input: $ENV_FROM_INPUT"
