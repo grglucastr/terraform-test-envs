@@ -41,9 +41,8 @@ jobs:
         with:
           workspace: ${{env.TF_WORKSPACE}} 
           configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}
-        env:
-          TF_VAR_CNAME_NAME: "Eitchaaa CNAME NAME do Github Actions para o Terraform"
-          TF_VAR_CNAME_VALUE: "Eitchaaa CNAME VALUE do Github Actions para o Terraform"
+          TF_VAR_CNAME_NAME: ${{env.TF_VAR_CNAME_NAME}}
+          TF_VAR_CNAME_VALUE: ${{env.TF_VAR_CNAME_VALUE}}
 
       - name: Apply
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
