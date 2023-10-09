@@ -41,8 +41,9 @@ jobs:
         with:
           workspace: ${{env.TF_WORKSPACE}} 
           configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}
-          TF_VAR_CNAME_NAME: ${{env.TF_VAR_CNAME_NAME}}
-          TF_VAR_CNAME_VALUE: ${{env.TF_VAR_CNAME_VALUE}}
+          run: |
+            export TF_VAR_CNAME_NAME = $TF_VAR_CNAME_NAME
+            export TF_VAR_CNAME_VALUE = $TF_VAR_CNAME_VALUE
 
       - name: Apply
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
