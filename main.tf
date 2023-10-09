@@ -9,6 +9,15 @@ terraform {
       version = "3.4.3"
     }
   }
+
+  cloud {
+    organization = "bennun-labs"
+
+    workspaces {
+      name = "teste-envs"
+    }
+  }
+
   required_version = ">= 1.1.0"
 }
 
