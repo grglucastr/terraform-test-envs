@@ -25,40 +25,34 @@ env:
   CONFIG_DIRECTORY: "./"
 
 jobs:
-  greet:
+  terraform:
+    name: "Terraform"
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_CNAME_NAME: 'INSIDE JOB'
     steps:
-      - name: Chekcout
+      - name: checkout
         uses: actions/checkout@v3
-
-      - name: Upload Configuration
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
-        id: apply-upload
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
-          directory: ${{ env.CONFIG_DIRECTORY }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Export variables
-        id: export-variables
-        run: |
-          export TF_VAR_CNAME_NAME=$TF_VAR_CNAME_NAME
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt -check
+      
+      - name: Terraform init
+        id: init
+        run: terraform init
 
-      - name: Create Apply Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.4
-        id: apply-run
-        env:
-          TF_VAR_ANOTHER_VAR: 'INSIDE STEP STAGE'
-
-        with:
-          workspace: ${{env.TF_WORKSPACE}} 
-          configuration_version: ${{steps.apply-upload.outputs.configuration_version_id}}          
-
-      - name: Apply
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
-        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
-        id: apply
-        with:
-          run: ${{steps.apply-run.outputs.run_id}}
-          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+      - name: Terraform validate
+        id: validate
+        run: terraform validate -no-color
+      
+      - name: Terraform plan
+        id: plan
+        run: terraform plan -input=false
+        continue-on-error: true
+      
+      - name: Terraform apply
+        run: terraform apply -auto-aprove -input=false
