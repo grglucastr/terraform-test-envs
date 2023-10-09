@@ -45,11 +45,16 @@ jobs:
       
       - name: Terraform plan
         id: plan
-        run: terraform plan -input=false
+        run: |
+          export TF_CLOUD_ORGANIZATION=$TF_ORGANIZATION
+          export TF_WORKSPACE=$TF_WORKSPACE
+          terraform plan -input=false
         continue-on-error: true
       
       - name: Terraform apply
         run: |
+          export TF_CLOUD_ORGANIZATION=$TF_ORGANIZATION
+          export TF_WORKSPACE=$TF_WORKSPACE
           export TF_VAR_CNAME_NAME=${{ github.event.inputs.cname }}
           export TF_VAR_CNAME_VALUE=${{ github.event.inputs.cvalue }}
           
