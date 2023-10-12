@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: print branch names
+        run: |
+          echo ${{ github.event.pull_request.base.ref }}
+          echo ${{ github.base_ref }}
+          echo ${{ github.head_ref }}
       
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.3 
